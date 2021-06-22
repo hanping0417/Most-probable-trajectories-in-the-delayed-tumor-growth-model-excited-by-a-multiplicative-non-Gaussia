@@ -1,0 +1,35 @@
+clear;clc;  %figure;
+
+
+a1=textread('MPT1\Q1_17_2.txt');  
+x_1=a1(:,1);y_1=a1(:,2);z_1=a1(:,3);t=unique(x_1);x=unique(y_1);m=length(t);n=length(x);
+a2=textread('MPT2\TQ1_17_2.txt');  
+x_2=a2(:,1);y_2=a2(:,2);z_2=a2(:,3);
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+for i=1:m  
+    for j=1:n 
+        p1(i,j)=z_1((i-1)*n+j);
+    end
+ end
+ 
+for i=1:m  
+    for j=1:n 
+        p2(i,j)=z_2((i-1)*n+j);
+   end
+ end
+ p=p1.*p2;s=sum(p,2);p=p./s;
+% % figure;
+% % surfc(t,x,p');      %表面,'.','MarkerSize',12  一般，x,y,p是维数相同的矩阵
+% % colormap jet
+% % shading interp
+% 
+[C I]=max(p,[],2); 
+x_max=x(I);
+plot(t,x_max,'.-','LineWidth',1,'MarkerSize',6);hold on;
+for k=1:m
+     if(x_max(k)>0.05)
+        T=t(k);
+         return
+     end
+ end
+
